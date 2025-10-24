@@ -1,9 +1,10 @@
 import {useState} from "react";
-import {Button} from "../UI/Button";
+
 import PersonalFormSection from "../PersonalFormSection";
 import SkillsFormSection from "../SkillsFormSection";
 import ProjectsFormSection from "../ProjectsFormSection";
 import ExperienceFormSection from "../ExperienceFormSection";
+import {Button} from "../ui/button";
 
 const Form = () => {
   const [activeSection, setActiveSection] = useState("personal");
