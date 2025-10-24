@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import {Button} from "./ui/button";
 
 const Hero = () => {
@@ -9,7 +10,9 @@ const Hero = () => {
         stunning portfolio website in minutes.
       </p>
       <div className="flex items-center justify-center">
-        <Button>Generate your portfolio</Button>
+        <Link to="/form" className="mr-4">
+          <Button>Generate your portfolio</Button>
+        </Link>
       </div>
     </section>
   );
