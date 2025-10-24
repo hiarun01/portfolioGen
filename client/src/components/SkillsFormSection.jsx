@@ -25,8 +25,8 @@ const SkillsFormSection = ({data = {}, onChange}) => {
           Technical Skills *
         </label>
         <textarea
-          value={data.technical ? data.technical.join(", ") : ""}
-          onChange={(e) => handleArrayChange("technical", e.target.value)}
+          value={data.skills ? data.skills.join(", ") : ""}
+          onChange={(e) => handleArrayChange("skills", e.target.value)}
           rows="3"
           className="w-full p-3 border rounded-md"
           placeholder="JavaScript, React, Node.js, Python, AWS, Docker (comma-separated)"

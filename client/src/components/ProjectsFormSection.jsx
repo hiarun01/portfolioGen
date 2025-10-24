@@ -33,7 +33,7 @@ const ProjectsFormSection = ({data = [], onChange}) => {
     if (data.length === 0) {
       const newProject = {
         id: Date.now(),
-        title: "",
+        name: "",
         description: "",
         liveUrl: "",
         githubUrl: "",

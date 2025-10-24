@@ -51,8 +51,8 @@ const PersonalFormSection = ({data = {}, onChange}) => {
       <div>
         <Label className=" mb-2">About Me *</Label>
         <textarea
-          value={data.bio || ""}
-          onChange={(e) => handleChange("bio", e.target.value)}
+          value={data.about || ""}
+          onChange={(e) => handleChange("about", e.target.value)}
           rows="4"
           className="w-full p-3 border rounded-md"
           placeholder="Tell people about yourself, your passion, and what you do..."
