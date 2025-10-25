@@ -10,7 +10,7 @@ const HeroFormSection = ({data = {}, onChange}) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="">
       <h3 className="text-xl font-semibold mb-4">Hero Section</h3>
       <p className="text-gray-600 dark:text-gray-400 mb-6">
         This information will be prominently displayed at the top of your
@@ -51,12 +51,8 @@ const HeroFormSection = ({data = {}, onChange}) => {
           onChange={(e) => handleChange("about", e.target.value)}
           rows="4"
           className="w-full p-3 border rounded-md"
-          placeholder="Write a compelling introduction about yourself, your profession, and what makes you unique. This will be prominently displayed in your hero section..."
+          placeholder="Wrrite About Yourself..."
         />
-        <p className="text-xs text-gray-500 mt-1">
-          This description will be displayed prominently at the top of your
-          portfolio website
-        </p>
       </div>
     </div>
   );

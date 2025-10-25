@@ -1,6 +1,6 @@
 const HowItWorks = () => {
   return (
-    <div className="max-w-7xl mx-auto py-16 px-6 text-center">
+    <div className="max-w-7xl mx-auto py-5 px-6 text-center">
       <h2 className="text-4xl font-bold">How it works</h2>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="p-6 border rounded-lg">

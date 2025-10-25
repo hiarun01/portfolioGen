@@ -6,7 +6,6 @@ const ContactFormSection = ({data = {}, onChange}) => {
     onChange({
       ...data,
       [field]: value,
-      
     });
   };
 
@@ -30,23 +29,17 @@ const ContactFormSection = ({data = {}, onChange}) => {
             className="w-full"
             placeholder="your.email@example.com"
           />
-          <p className="text-xs text-gray-500 mt-1">
-            This email will be displayed on your contact section
-          </p>
         </div>
 
         <div>
-          <Label className=" mb-2">Contact Phone</Label>
+          <Label className=" mb-2">Phone Number*</Label>
           <Input
             type="tel"
             value={data.phone || ""}
             onChange={(e) => handleChange("phone", e.target.value)}
             className="w-full"
-            placeholder="+1 (555) 123-4567"
+            placeholder="Enter your phone number"
           />
-          <p className="text-xs text-gray-500 mt-1">
-            Optional: Phone number for direct contact
-          </p>
         </div>
       </div>
 
@@ -55,27 +48,10 @@ const ContactFormSection = ({data = {}, onChange}) => {
         <textarea
           value={data.message || ""}
           onChange={(e) => handleChange("message", e.target.value)}
-          rows="6"
+          rows="3"
           className="w-full p-3 border rounded-md"
-          placeholder="Hi! I'm always interested in new opportunities and collaborations. Whether you have a project in mind, want to discuss potential partnerships, or just want to say hello, I'd love to hear from you. Feel free to reach out!"
+          placeholder="write a message to encourage people to reach out to you..."
         />
-        <p className="text-xs text-gray-500 mt-1">
-          Write a welcoming message that encourages people to contact you. This
-          will be displayed in your contact section.
-        </p>
-      </div>
-
-      <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
-        <h4 className="font-medium mb-2">Contact Section Preview</h4>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          Your contact section will display:
-        </p>
-        <ul className="text-sm text-gray-600 dark:text-gray-400 mt-2 space-y-1">
-          <li>• Your personalized contact message</li>
-          <li>• Email address for inquiries</li>
-          <li>• Phone number (if provided)</li>
-          <li>• A contact form for visitors to reach you</li>
-        </ul>
       </div>
     </div>
   );

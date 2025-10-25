@@ -61,3 +61,31 @@ export const getAllPortfolios = async (req, res) => {
     });
   }
 };
+
+// Get portfolio by ID
+export const getPortfolioById = async (req, res) => {
+  try {
+    const {id} = req.params;
+
+    // Find portfolio by ID
+    const portfolio = await Portfolio.findById(id);
+    if (!portfolio) {
+      return res.status(404).json({
+        success: false,
+        message: "Portfolio not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: portfolio,
+    });
+  } catch (error) {
+    console.error("Get portfolio error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch portfolio",
+      error: error.message,
+    });
+  }
+};

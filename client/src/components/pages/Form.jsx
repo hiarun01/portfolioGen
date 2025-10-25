@@ -1,24 +1,20 @@
 import {useState} from "react";
-import {useLocation} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import HeroFormSection from "../HeroFormSection";
 import SkillsFormSection from "../SkillsFormSection";
 import PortfolioFormSection from "../PortfolioFormSection";
 import ContactFormSection from "../ContactFormSection";
-
 import {Button} from "../ui/button";
 
 const Form = () => {
-  const location = useLocation();
-
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("hero");
-  const [formData, setFormData] = useState(
-    location.state?.formData || {
-      hero: {},
-      skills: {},
-      portfolio: [],
-      contact: {},
-    }
-  );
+  const [formData, setFormData] = useState({
+    hero: {},
+    skills: {},
+    portfolio: [],
+    contact: {},
+  });
 
   // Form Sections
   const sections = [
@@ -41,46 +37,35 @@ const Form = () => {
   };
 
   const handleSubmit = () => {
-    // Basic validation
     const {hero, skills, portfolio, contact} = formData;
 
-    if (!hero.fullName || !hero.profileImage || !hero.about) {
-      alert("Please fill in all required hero section fields.");
+    // Simple validation
+    if (!hero.fullName) {
+      alert("Please enter your full name");
       setActiveSection("hero");
       return;
     }
 
-    if (!skills.skills || skills.skills.length === 0) {
-      alert("Please add at least one skill.");
+    if (!skills.skills?.length) {
+      alert("Please add at least one skill");
       setActiveSection("skills");
       return;
     }
 
-    if (!portfolio || portfolio.length < 1) {
-      alert("Please add at least 1 project in your portfolio.");
+    if (!portfolio?.length) {
+      alert("Please add at least one project");
       setActiveSection("portfolio");
       return;
     }
 
-    // Check if at least 1 project is properly filled
-    const validProjects = portfolio.filter(
-      (p) => p.title && p.description && p.image
-    );
-    if (validProjects.length < 1) {
-      alert(
-        "Please complete at least 1 project with title, description, and image."
-      );
-      setActiveSection("portfolio");
-      return;
-    }
-
-    if (!contact.email || !contact.message) {
-      alert("Please fill in the required contact information.");
+    if (!contact.email) {
+      alert("Please enter your email");
       setActiveSection("contact");
       return;
     }
 
-    console.log("Portfolio Form Data:", formData);
+    // Navigate to template selection
+    navigate("/templates", {state: {formData}});
   };
 
   // Active Component
@@ -89,7 +74,7 @@ const Form = () => {
   )?.component; //
 
   return (
-    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white">
+    <div className="bg-white text-black dark:bg-black dark:text-white">
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         <h2 className="text-3xl font-bold mb-8 text-center">
           Portfolio Information Form
