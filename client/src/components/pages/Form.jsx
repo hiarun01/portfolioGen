@@ -1,26 +1,35 @@
 import {useState} from "react";
-
-import PersonalFormSection from "../PersonalFormSection";
+import {useLocation} from "react-router-dom";
+import HeroFormSection from "../HeroFormSection";
 import SkillsFormSection from "../SkillsFormSection";
-import ProjectsFormSection from "../ProjectsFormSection";
-import ExperienceFormSection from "../ExperienceFormSection";
+import PortfolioFormSection from "../PortfolioFormSection";
+import ContactFormSection from "../ContactFormSection";
+
 import {Button} from "../ui/button";
 
 const Form = () => {
-  const [activeSection, setActiveSection] = useState("personal");
-  const [formData, setFormData] = useState({
-    personal: {},
-    skills: {},
-    projects: [],
-    experience: [],
-  });
+  const location = useLocation();
+
+  const [activeSection, setActiveSection] = useState("hero");
+  const [formData, setFormData] = useState(
+    location.state?.formData || {
+      hero: {},
+      skills: {},
+      portfolio: [],
+      contact: {},
+    }
+  );
 
   // Form Sections
   const sections = [
-    {id: "personal", label: "Personal Details", component: PersonalFormSection},
-    {id: "skills", label: "Skills", component: SkillsFormSection},
-    {id: "projects", label: "Projects", component: ProjectsFormSection},
-    {id: "experience", label: "Experience", component: ExperienceFormSection},
+    {id: "hero", label: "Hero Section", component: HeroFormSection},
+    {id: "skills", label: "Skills Section", component: SkillsFormSection},
+    {
+      id: "portfolio",
+      label: "Portfolio Section",
+      component: PortfolioFormSection,
+    },
+    {id: "contact", label: "Contact Section", component: ContactFormSection},
   ];
 
   // Update Form Data
@@ -32,6 +41,45 @@ const Form = () => {
   };
 
   const handleSubmit = () => {
+    // Basic validation
+    const {hero, skills, portfolio, contact} = formData;
+
+    if (!hero.fullName || !hero.profileImage || !hero.about) {
+      alert("Please fill in all required hero section fields.");
+      setActiveSection("hero");
+      return;
+    }
+
+    if (!skills.skills || skills.skills.length === 0) {
+      alert("Please add at least one skill.");
+      setActiveSection("skills");
+      return;
+    }
+
+    if (!portfolio || portfolio.length < 1) {
+      alert("Please add at least 1 project in your portfolio.");
+      setActiveSection("portfolio");
+      return;
+    }
+
+    // Check if at least 1 project is properly filled
+    const validProjects = portfolio.filter(
+      (p) => p.title && p.description && p.image
+    );
+    if (validProjects.length < 1) {
+      alert(
+        "Please complete at least 1 project with title, description, and image."
+      );
+      setActiveSection("portfolio");
+      return;
+    }
+
+    if (!contact.email || !contact.message) {
+      alert("Please fill in the required contact information.");
+      setActiveSection("contact");
+      return;
+    }
+
     console.log("Portfolio Form Data:", formData);
   };
 
@@ -79,8 +127,7 @@ const Form = () => {
 
         {/* Submit Button */}
         <div className="text-center">
-          {" "}
-          {activeSection === "experience" && (
+          {activeSection === "contact" && (
             <Button onClick={handleSubmit} className="px-8 py-3">
               Generate Portfolio
             </Button>

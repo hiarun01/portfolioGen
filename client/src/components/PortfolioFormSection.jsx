@@ -3,7 +3,7 @@ import {Label} from "./ui/label";
 import {Input} from "./ui/input";
 import {useEffect} from "react";
 
-const ProjectsFormSection = ({data = [], onChange}) => {
+const PortfolioFormSection = ({data = [], onChange}) => {
   const addProject = () => {
     const newProject = {
       id: Date.now(),
@@ -114,10 +114,6 @@ const ProjectsFormSection = ({data = [], onChange}) => {
               className="w-full border rounded-md p-3"
               placeholder="Describe what the project does, technologies used, your role, and key features..."
             />
-            <p className="text-xs text-gray-500 mt-1">
-              Provide a concise but detailed description that highlights the
-              project's value and your contribution
-            </p>
           </div>
         </div>
       ))}
@@ -125,4 +121,4 @@ const ProjectsFormSection = ({data = [], onChange}) => {
   );
 };
 
-export default ProjectsFormSection;
+export default PortfolioFormSection;

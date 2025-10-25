@@ -2,49 +2,34 @@ import mongoose from "mongoose";
 
 const portfolioSchema = new mongoose.Schema(
   {
-    personalInfo: {
-      fullName: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-      },
-      phone: {
-        type: String,
-        required: true,
-      },
-      about: {
-        type: String,
-        required: true,
-      },
-    },
-    skills: {
-      type: String,
-      required: true,
+    hero: {
+      fullName: {type: String, required: true},
+      profileImage: {type: String, required: true},
+      about: {type: String, required: true},
     },
 
-    projects: [
+    skills: {
+      skills: [{type: String, required: true}],
+    },
+
+    portfolio: [
       {
-        name: {type: String, required: true},
+        id: {type: Number, required: true},
+        title: {type: String, required: true},
         description: {type: String, required: true},
-        liveUrl: {type: String, required: true},
-        githubUrl: {type: String, required: true},
+        image: {type: String, required: true},
       },
     ],
-    experience: [
-      {
-        jobTitle: String,
-        company: String,
-        location: String,
-        startDate: Date,
-        endDate: Date,
-        description: String,
-      },
-    ],
+
+    contact: {
+      email: {type: String, required: true},
+      phone: {type: String, required: true},
+      message: {type: String, required: true},
+    },
   },
-  {timestamps: true}
+  {
+    timestamps: true,
+  }
 );
 
 const Portfolio = mongoose.model("Portfolio", portfolioSchema);
