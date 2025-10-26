@@ -63,7 +63,7 @@ const Dashboard = () => {
             </p>
           </div>
           <Button onClick={handleCreateNew} className="px-6 py-3">
-            + Create New Portfolio
+            Create New
           </Button>
         </div>
 
@@ -91,20 +91,54 @@ const Dashboard = () => {
                     alt={portfolio.hero.fullName}
                     className="w-10 h-10 rounded-full object-cover mr-4"
                   />
+
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
                       {portfolio.hero?.fullName}
                     </h3>
                   </div>
                 </div>
+                {/* theme name */}
+                <div className="mb-2">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    Theme:{" "}
+                    <span className="font-medium">
+                      {portfolio.selectedTemplate || portfolio.templateName}
+                    </span>
+                  </span>
+                </div>
                 {/* about section */}
-                <p className="text-gray-600 text-sm dark:text-gray-400 mb-5">
-                  {portfolio.hero?.about.slice(0, 80) ||
-                    "No description provided."}
+                <p className="text-gray-600 text-sm dark:text-gray-400 mb-2">
+                  {portfolio.hero?.about || "No description provided."}
                   ...
                 </p>
 
+                {/* Project section */}
+                <div className="text-sm mb-2 ">
+                  Projects : {portfolio.portfolio?.length || 0}
+                </div>
+
                 {/* skills section */}
+
+                <div className="flex flex-wrap gap-2 mb-5">
+                  <span className="text-gray-600 dark:text-gray-400">
+                    Skills:
+                  </span>
+                  {portfolio.skills?.skills?.length ? (
+                    portfolio.skills.skills.slice(0, 5).map((skill, index) => (
+                      <span
+                        key={index}
+                        className="px-3 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full text-sm font-normal"
+                      >
+                        {skill}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-gray-600 dark:text-gray-400">
+                      No skills added.
+                    </span>
+                  )}
+                </div>
 
                 <div className="text-center">
                   <Button
