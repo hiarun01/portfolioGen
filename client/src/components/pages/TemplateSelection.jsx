@@ -6,7 +6,7 @@ import {createPortfolio} from "../../api/api";
 const TemplateSelection = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const formData = location.state?.formData;
+  const formData = location.state?.formData; // Get form data from navigation state
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,6 @@ const TemplateSelection = () => {
       const result = await createPortfolio(portfolioData);
 
       if (result.success) {
-        // Navigate to profile cards page
         navigate("/dashboard", {
           state: {
             newPortfolio: result.data,
@@ -61,7 +60,7 @@ const TemplateSelection = () => {
         });
       } else {
         console.error("API Error:", result);
-        alert("Failed to create portfolio. Please try again.");
+        alert("Failed to create portfolio");
       }
     } catch (error) {
       console.error("Submit error:", error);
@@ -106,7 +105,6 @@ const TemplateSelection = () => {
               className="border rounded-xl p-6 cursor-pointer "
               onClick={() => handleTemplateSelect(template)}
             >
-              {/* Template Info */}
               <h3 className="text-xl font-bold mb-2">{template.name}</h3>
               <p className="text-gray-600 dark:text-gray-700 mb-4 text-sm">
                 {template.description}
@@ -121,6 +119,7 @@ const TemplateSelection = () => {
             ← Back to Form
           </Button>
 
+          {/*selected template info */}
           <div className="text-center">
             {selectedTemplate && (
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
@@ -133,7 +132,7 @@ const TemplateSelection = () => {
               disabled={!selectedTemplate || loading}
               className="px-8 py-3"
             >
-              {loading ? "Creating..." : "Generate Portfolio →"}
+              {loading ? "Creating..." : "Generate Portfolio"}
             </Button>
           </div>
         </div>

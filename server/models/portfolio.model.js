@@ -26,6 +26,10 @@ const portfolioSchema = new mongoose.Schema(
       phone: {type: String, required: true},
       message: {type: String, required: true},
     },
+
+    // Template information
+    selectedTemplate: {type: String, required: true}, // "modern" or "minimal"
+    templateName: {type: String, required: true}, // "Modern" or "Minimal Sleek Design"
   },
   {
     timestamps: true,

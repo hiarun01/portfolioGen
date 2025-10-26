@@ -3,7 +3,8 @@ import Portfolio from "../models/portfolio.model.js";
 // portfolio Submit form data
 export const createPortfolio = async (req, res) => {
   try {
-    const {hero, skills, portfolio, contact} = req.body;
+    const {hero, skills, portfolio, contact, selectedTemplate, templateName} =
+      req.body;
 
     // Basic validation
     if (!hero || !skills || !portfolio || !contact) {
@@ -13,12 +14,22 @@ export const createPortfolio = async (req, res) => {
       });
     }
 
+    // Template validation
+    if (!selectedTemplate || !templateName) {
+      return res.status(400).json({
+        success: false,
+        message: "Template selection is required",
+      });
+    }
+
     // Create new portfolio
     const newPortfolio = new Portfolio({
       hero,
       skills,
       portfolio,
       contact,
+      selectedTemplate,
+      templateName,
     });
 
     const savedPortfolio = await newPortfolio.save();
