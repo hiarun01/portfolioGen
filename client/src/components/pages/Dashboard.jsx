@@ -2,11 +2,13 @@ import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {Button} from "../ui/button";
 import {getAllPortfolios} from "../../api/api";
+import {Input} from "../ui/input";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   // Fetch all portfolios from API
   const fetchPortfolios = async () => {
@@ -21,6 +23,19 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+
+  // search functionality for searching in name and skills
+  const filteredPortfolios = portfolios.filter((portfolio) => {
+    if (!search.trim()) return true;
+
+    const searchTerm = search.toLowerCase().trim();
+    const fullName = portfolio.hero?.fullName?.toLowerCase();
+    const skills =
+      portfolio.skills?.skills?.map((skill) => skill.toLowerCase()).join(" ") ||
+      "";
+    // Search in both name and skills
+    return fullName.includes(searchTerm) || skills.includes(searchTerm);
+  });
 
   useEffect(() => {
     fetchPortfolios();
@@ -62,9 +77,19 @@ const Dashboard = () => {
               Browse and view all created portfolios
             </p>
           </div>
-          <Button onClick={handleCreateNew} className="px-6 py-3">
-            Create New
-          </Button>
+          <div className="flex gap-3 items-center">
+            {/* Search Input */}
+            <Input
+              className="w-64"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by name or skills..."
+            />
+
+            <Button onClick={handleCreateNew} className="px-6 py-3">
+              Create New
+            </Button>
+          </div>
         </div>
 
         {/* Portfolio Cards Grid */}
@@ -76,9 +101,13 @@ const Dashboard = () => {
             </p>
             <Button onClick={handleCreateNew}>Create Portfolio</Button>
           </div>
+        ) : filteredPortfolios.length === 0 ? (
+          <div className="text-center py-12">
+            <h3 className="text-2xl font-bold mb-4">No Results Found</h3>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolios.map((portfolio) => (
+            {filteredPortfolios.map((portfolio) => (
               <div
                 key={portfolio._id}
                 className="border border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:shadow-lg transition-shadow cursor-pointer bg-white dark:bg-gray-900"
